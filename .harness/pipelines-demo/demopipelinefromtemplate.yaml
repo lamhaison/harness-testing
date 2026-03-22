@@ -1,0 +1,16 @@
+pipeline:
+  name: demo-pipeline-template
+  identifier: demopipelinefromtemplate
+  tags: {}
+  variables:
+    - name: PROJECT_NAME
+      type: String
+      description: The project name
+      required: true
+      value: <+input>.default(lhs-demo)
+  template:
+    templateRef: account.demopipelinetemplate
+    versionLabel: v1.0.0
+    gitBranch: main
+  projectIdentifier: default_project
+  orgIdentifier: default
