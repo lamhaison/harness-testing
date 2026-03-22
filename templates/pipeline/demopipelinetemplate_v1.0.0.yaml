@@ -3,8 +3,6 @@ template:
   identifier: demopipelinetemplate
   versionLabel: v1.0.0
   type: Pipeline
-  projectIdentifier: default_project
-  orgIdentifier: default
   tags: {}
   variables:
     - name: PROJECT_NAME
@@ -39,4 +37,4 @@ template:
                     name: Step-1
                     identifier: Step1
                     template:
-                      templateRef: templatestep1
+                      templateRef: account.templatestep1
