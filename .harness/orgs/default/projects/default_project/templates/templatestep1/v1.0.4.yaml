@@ -1,0 +1,14 @@
+template:
+  name: template-step-1
+  identifier: templatestep1
+  type: Step
+  projectIdentifier: default_project
+  orgIdentifier: default
+  tags: {}
+  spec:
+    type: Run
+    spec:
+      shell: Sh
+      command: echo "Hello project=<+pipeline.variables.PROJECT_NAME> env_name=<+pipeline.variables.ENV_NAME> !!"
+    description: Test
+  versionLabel: v1.0.4
