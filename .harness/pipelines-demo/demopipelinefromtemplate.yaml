@@ -8,6 +8,11 @@ pipeline:
       description: The project name
       required: true
       value: <+input>.default(lhs-demo)
+    - name: ENV_NAME
+      type: String
+      description: The environment name
+      required: true
+      value: <+input>.default(testing)
   template:
     templateRef: account.demopipelinetemplate
   projectIdentifier: default_project
