@@ -79,7 +79,7 @@ pipeline:
                     source:
                       type: Inline
                       spec:
-                        script: echo "after approval"
+                        script: echo "after approval for version 1.0.1"
                     environmentVariables: []
                     outputVariables: []
                   timeout: 10m
