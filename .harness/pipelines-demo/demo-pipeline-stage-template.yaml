@@ -1,0 +1,82 @@
+pipeline:
+  projectIdentifier: default_project
+  orgIdentifier: default
+  tags: {}
+  variables:
+    - name: PROJECT_NAME
+      type: String
+      description: The project name
+      required: true
+      value: <+input>.default(lhs-demo)
+  stages:
+    - stage:
+        name: CI
+        identifier: CI
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: false
+          caching:
+            enabled: true
+            override: true
+          buildIntelligence:
+            enabled: true
+          platform:
+            os: MacOS
+            arch: Arm64
+          runtime:
+            type: Docker
+            spec:
+              harnessImageConnectorRef: account.harnessImage
+          execution:
+            steps:
+              - step:
+                  name: Test-using-step-template
+                  identifier: Testusingsteptemplate
+                  template:
+                    templateRef: account.templatestep1
+                    versionLabel: v1.0.1
+        delegateSelectors:
+          - helm-delegate
+    - stage:
+        name: Test-Approval
+        identifier: TestApproval
+        description: ""
+        type: Approval
+        spec:
+          execution:
+            steps:
+              - step:
+                  name: test
+                  identifier: test
+                  type: HarnessApproval
+                  timeout: 1d
+                  spec:
+                    approvalMessage: |-
+                      Please review the following information
+                      and approve the pipeline progression
+                    includePipelineExecutionHistory: true
+                    approvers:
+                      minimumCount: 1
+                      disallowPipelineExecutor: false
+                      userGroups:
+                        - account._account_all_users
+                    isAutoRejectEnabled: false
+                    approverInputs: []
+              - step:
+                  type: ShellScript
+                  name: run-after-approval
+                  identifier: runafterapproval
+                  spec:
+                    shell: Bash
+                    executionTarget: {}
+                    source:
+                      type: Inline
+                      spec:
+                        script: echo "after approval"
+                    environmentVariables: []
+                    outputVariables: []
+                  timeout: 10m
+        tags: {}
+  identifier: demopipelinetemplate
+  name: demo-pipeline-stage-template
