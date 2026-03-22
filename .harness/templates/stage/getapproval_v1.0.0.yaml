@@ -1,0 +1,26 @@
+template:
+  name: get-approval
+  identifier: getapproval
+  versionLabel: v1.0.0
+  type: Stage
+  tags: {}
+  spec:
+    type: Approval
+    spec:
+      execution:
+        steps:
+          - step:
+              name: get-approval
+              identifier: getapproval
+              type: HarnessApproval
+              timeout: 1d
+              spec:
+                approvalMessage: Please review the result before geting approval to go ahead
+                includePipelineExecutionHistory: true
+                approvers:
+                  minimumCount: 1
+                  disallowPipelineExecutor: false
+                  userGroups:
+                    - account._account_all_users
+                isAutoRejectEnabled: false
+                approverInputs: []
