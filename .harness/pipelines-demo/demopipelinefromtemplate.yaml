@@ -2,6 +2,12 @@ pipeline:
   name: demo-pipeline-template
   identifier: demopipelinefromtemplate
   tags: {}
+  variables:
+    name: PROJECT_NAME
+    type: String
+    description: The project name
+    required: true
+    value: <+input>.default(lhs-demo)
   template:
     templateRef: account.demopipelinetemplate
   projectIdentifier: default_project
