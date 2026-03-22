@@ -1,0 +1,42 @@
+template:
+  name: demo-pipeline-template
+  identifier: demopipelinetemplate
+  versionLabel: v1.0.0
+  type: Pipeline
+  tags: {}
+  variables:
+    - name: PROJECT_NAME
+      type: String
+      description: The project name
+      required: true
+      value: <+input>.default(lhs-demo)
+  spec:
+    stages:
+      - stage:
+          name: CI
+          identifier: CI
+          description: ""
+          type: CI
+          spec:
+            cloneCodebase: false
+            caching:
+              enabled: true
+              override: true
+            buildIntelligence:
+              enabled: true
+            platform:
+              os: MacOS
+              arch: Arm64
+            runtime:
+              type: Docker
+              spec:
+                harnessImageConnectorRef: account.harnessImage
+            execution:
+              steps:
+                - step:
+                    name: run-step-1
+                    identifier: runstep1
+                    template:
+                      templateRef: account.templatestep1
+                      versionLabel: v1.0.0
+                      gitBranch: main
